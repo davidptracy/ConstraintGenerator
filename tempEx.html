@@ -1,0 +1,316 @@
+<html>
+	<head>
+
+		<!-- Latest compiled and minified CSS -->
+		<link rel="stylesheet" href="css/bootstrap.min.css">
+
+		<title> Working Title </title>
+
+		<style>
+
+			body {			
+				width: 100%;
+				font-family: Arial, Verdana, sans-serif;
+			}	
+
+			.gameColumn {
+				float: left;
+				width: 23%;
+			}
+
+		</style>
+
+		<script>
+
+			// ============================================================
+			// =================== GLOBAL VARIABLES =======================
+			// ============================================================
+
+			var settingArray = ['Growth Economy','World in Decay','Medieval Times', '1980s Mall', 'Hell', 'Fragglerock', 'Television Sitcom', 'In the Present', '5 years from now', 'Waterworld'];
+			var systemArray = ['Education', 'Health', 'Geology', 'Military', 'Self Help', 'Advertising', 'Mass Entertainment', 'Extreme Luxury', 'Agricultural', 'Spectator Sports', 'Hobbies', 'Five Star Dining', 'Natural Births'];
+			var targetArray = ['Children','Pilgrims','Travelers', 'Old People', 'Farmers', 'Hipsters', 'New Parents', 'Women', 'Criminal', 'Hermit', 'Livestock', 'Megafauna', 'Trees', 'Companion Animals', 'Service Animals', 'Musicians', 'Celebrities'];
+			var moodArray = ['Uplifting', 'Erotic', 'Devastating', 'Destructive', 'Playful', 'Revolutionary', 'Secretive', 'Subtle', 'Improving', 'Degrading', 'Transformative', 'Humorous', 'Satirical', 'Prejudice'];
+			
+			var fontFamily = "20px Arial";
+			var fontFamilyLarge = "40px Arial";
+
+			var settingClicked = false;
+			var systemClicked = false;
+			var targetClicked = false;
+			var moodClicked = false;
+
+			var settingCanvas, systemCanvas, targetCanvas, moodCanvas;
+
+			var settingCtx, systemCtx, targetCtx, moodCtx;
+
+			// ============================================================
+			// ===================== LOAD + EVENTS ========================
+			// ============================================================
+
+			window.addEventListener('load', function(){
+
+				setup();
+
+				
+				// Canvas event listeners
+				settingCanvas.addEventListener('click', function(){
+
+					h=parseInt(document.getElementById("settingCanvas").getAttribute("height"));
+					w=parseInt(document.getElementById("settingCanvas").getAttribute("width"));
+
+						var selected = getTool(Math.random());
+
+						settingClicked = true;
+						console.log("Existing Tool Canvas has been Clicked!");
+						
+						settingCtx.fillStyle = "white";
+			            settingCtx.fillRect(0,0,w,h);
+
+			            settingCtx.font= fontFamily;
+			            settingCtx.textAlign = 'center';
+			            settingCtx.fillStyle = "black";
+			            settingCtx.fillText(selected,w/2,h/2);
+
+
+				});
+
+				systemCanvas.addEventListener('click', function(){
+					h=parseInt(document.getElementById("systemCanvas").getAttribute("height"));
+					w=parseInt(document.getElementById("systemCanvas").getAttribute("width"));
+
+
+						var selected = getMethod(Math.random());
+
+						systemClicked = true;
+						console.log("Method Canvas has been Clicked!");
+
+						systemCtx.fillStyle = "white";
+			            systemCtx.fillRect(0,0,w,h);
+
+			            systemCtx.font= fontFamily;
+			            systemCtx.textAlign = 'center';
+			            systemCtx.fillStyle = "black";
+			            systemCtx.fillText(selected,w/2, h/2);
+
+
+				});
+
+				targetCanvas.addEventListener('click', function(){
+					h=parseInt(document.getElementById("targetCanvas").getAttribute("height"));
+					w=parseInt(document.getElementById("targetCanvas").getAttribute("width"));
+
+
+					
+
+						var selected = getFuture(Math.random());
+
+						moodClicked = true;
+						console.log("Future Canvas has been Clicked!");
+
+						targetCtx.fillStyle = "white";
+			            targetCtx.fillRect(0,0,w,h);
+
+			            targetCtx.font= fontFamily;
+			            targetCtx.textAlign = 'center';
+			            targetCtx.fillStyle = "black";
+			            targetCtx.fillText(selected,w/2, h/2);
+
+				});
+
+				moodCanvas.addEventListener('click', function(){
+					h=parseInt(document.getElementById("moodCanvas").getAttribute("height"));
+					w=parseInt(document.getElementById("moodCanvas").getAttribute("width"));
+
+						var selected = getPurpose(Math.random());
+
+						targetClicked = true;
+						console.log("Context Canvas has been Clicked!");
+
+						moodCtx.fillStyle = "white";
+			            moodCtx.fillRect(0,0,w,h);
+
+			            moodCtx.font= fontFamily;
+			            moodCtx.textAlign = 'center';
+			            moodCtx.fillStyle = "black";
+			            moodCtx.fillText(selected,w/2, h/2);
+					
+
+				});
+
+			});
+
+			var setup = function(){
+
+				// =============================================
+				//   SETUP INITIAL PROPERTIES OF THE CANVASES
+				// =============================================
+
+				settingCanvas = document.getElementById('settingCanvas');
+				settingCtx = settingCanvas.getContext('2d');
+				settingCtx.fillStyle = "white";
+	            settingCtx.fillRect(0,0,document.getElementById("settingCanvas").getAttribute("width"),document.getElementById("settingCanvas").getAttribute("height"));
+
+				systemCanvas = document.getElementById('systemCanvas');
+				systemCtx = systemCanvas.getContext('2d');
+				systemCtx.fillStyle = "white";
+	            systemCtx.fillRect(0,0,document.getElementById("systemCanvas").getAttribute("width"),document.getElementById("systemCanvas").getAttribute("height"));
+
+				targetCanvas = document.getElementById('targetCanvas');
+				targetCtx = targetCanvas.getContext('2d');
+				targetCtx.fillStyle = "white";
+	            targetCtx.fillRect(0,0,document.getElementById("targetCanvas").getAttribute("width"),document.getElementById("targetCanvas").getAttribute("height"));
+
+				moodCanvas = document.getElementById('moodCanvas');
+				moodCtx = moodCanvas.getContext('2d');
+				moodCtx.fillStyle = "white";
+	            moodCtx.fillRect(0,0,document.getElementById("moodCanvas").getAttribute("width"),document.getElementById("moodCanvas").getAttribute("height"));
+			}
+
+			var randomAll = function(value){
+
+				h=parseInt(document.getElementById("moodCanvas").getAttribute("height"));
+				w=parseInt(document.getElementById("moodCanvas").getAttribute("width"));
+
+				var selected = getPurpose(Math.random());
+
+				targetClicked = true;
+				console.log("Context Canvas has been Clicked!");
+
+				moodCtx.fillStyle = "white";
+	            moodCtx.fillRect(0,0,w,h);
+
+	            moodCtx.font= fontFamily;
+	            moodCtx.textAlign = 'center';
+	            moodCtx.fillStyle = "black";
+	            moodCtx.fillText(selected,w/2, h/2);
+
+
+	            h=parseInt(document.getElementById("targetCanvas").getAttribute("height"));
+				w=parseInt(document.getElementById("targetCanvas").getAttribute("width"));
+
+				var selected = getFuture(Math.random());
+
+				moodClicked = true;
+				console.log("Future Canvas has been Clicked!");
+
+				targetCtx.fillStyle = "white";
+	            targetCtx.fillRect(0,0,w,h);
+
+	            targetCtx.font= fontFamily;
+	            targetCtx.textAlign = 'center';
+	            targetCtx.fillStyle = "black";
+	            targetCtx.fillText(selected,w/2, h/2);
+
+	            h=parseInt(document.getElementById("systemCanvas").getAttribute("height"));
+				w=parseInt(document.getElementById("systemCanvas").getAttribute("width"));
+
+				var selected = getMethod(Math.random());
+
+				systemClicked = true;
+				console.log("Method Canvas has been Clicked!");
+
+				systemCtx.fillStyle = "white";
+	            systemCtx.fillRect(0,0,w,h);
+
+	            systemCtx.font= fontFamily;
+	            systemCtx.textAlign = 'center';
+	            systemCtx.fillStyle = "black";
+	            systemCtx.fillText(selected,w/2, h/2);
+
+	            h=parseInt(document.getElementById("settingCanvas").getAttribute("height"));
+				w=parseInt(document.getElementById("settingCanvas").getAttribute("width"));
+
+				var selected = getTool(Math.random());
+
+				settingClicked = true;
+				console.log("Existing Tool Canvas has been Clicked!");
+				
+				settingCtx.fillStyle = "white";
+	            settingCtx.fillRect(0,0,w,h);
+
+	            settingCtx.font= fontFamily;
+	            settingCtx.textAlign = 'center';
+	            settingCtx.fillStyle = "black";
+	            settingCtx.fillText(selected,w/2,h/2);
+
+
+
+			}
+
+			var getTool = function(value){
+				var multiplier = value * settingArray.length;
+				return settingArray[Math.floor(multiplier)]
+			}
+
+			var getMethod = function(value){
+				var multiplier = value * systemArray.length;
+				return systemArray[Math.floor(multiplier)];
+			}
+
+			var getFuture = function(value){
+				var multiplier = value * targetArray.length;
+				return targetArray[Math.floor(multiplier)];
+			}
+
+			var getPurpose = function(value){
+				var multiplier = value * moodArray.length;
+				return moodArray[Math.floor(multiplier)];
+			}
+
+			var getTime = function(value){
+				var multiplier = value * moodArray.length;
+				return timeArray[Math.floor(multiplier)];
+			}
+
+			var getSetting = function(value){
+				var multiplier = value * moodArray.length;
+				return settingArray[Math.floor(multiplier)];
+			}
+
+		</script>
+
+
+	</head>
+
+	<body>
+<!-- 
+		<div class="heading01">
+		<h1>Scenario Game</h1>
+		<p>
+		Flip the cards. Create a drawing from the words you see. When the time is up, share your creation with your friends.
+		</p>
+		</div> -->
+
+		<div class="gameColumn" align='center'>
+			<h2>SETTING</h2>	
+			<canvas id="settingCanvas" width="300" height="300">
+			</canvas>		
+		</div>
+
+		<div class="gameColumn" align='center'>
+			<h2>SYSTEM</h2>
+			<canvas id="systemCanvas" width="300" height="300">
+			</canvas>
+		</div>
+
+		<div class="gameColumn" align='center'>
+			<h2>TARGET</h2>
+			<canvas id="targetCanvas" width="300" height="300">
+			</canvas>
+		</div>
+
+		<div class="gameColumn" align='center'>
+			<h2>MOOD</h2>
+			<canvas id="moodCanvas" width="300" height="300">
+			</canvas>
+		</div>
+
+		<!-- <button type="button" onclick='randomAll()'>Randomize All!</button> -->
+
+		<div align="center">
+		<button type="button" onclick='randomAll()' class="btn btn-danger btn-lg">Randomize All</button>
+		</div>
+
+	</body>
+
+</html>
